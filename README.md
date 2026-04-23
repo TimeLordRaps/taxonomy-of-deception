@@ -104,6 +104,22 @@ Two agents may interpret the same evidence differently without either deceiving 
 
 Disagreement becomes relevant to deception only when representation, framing, or omission causes a materially misleading understanding.
 
+## Use of artificial intelligence in drafting
+
+This repository was drafted with artificial intelligence assistance.
+
+A possible criticism is that using artificial intelligence to produce a taxonomy of deception is itself suspicious, performative, or epistemically weak: if the topic is deception, why use a system that can hallucinate, flatter, overstate, or smooth over hard distinctions?
+
+That criticism is worth taking seriously.
+
+The reason for using artificial intelligence assistance here is speed of externalization. I judged it better to get a rough but inspectable version of the framework into public view than to keep ruminating privately until it felt complete. A public repository can be corrected, criticized, forked, revised, and improved. A private rumination loop cannot be debugged by anyone else.
+
+There is also a practical social constraint. I do not currently have a strong network of people available to argue these points against in real time. I have also previously been banned from LessWrong after past posts that were read as schizo or otherwise not suitable for that forum. This note is not a request for that ban to be undone. It is simply context for why I am using a public repository and artificial intelligence assistance as scaffolding to get the idea into a form that others can inspect.
+
+The argument should therefore be judged by the clarity of its definitions, the usefulness of its distinctions, the strength of its objections, and the quality of future revisions, not by whether the first draft was written with or without artificial intelligence assistance.
+
+The artificial intelligence assistance is part of the workflow, not an authority claim.
+
 ## Counterfactual materiality
 
 A misleading gap is materially relevant when the receiver would likely have formed a different belief, made a different decision, given different consent, assigned different trust, taken different precautions, or evaluated the situation differently if the operative state had been represented more accurately.
@@ -182,6 +198,142 @@ A misleading gap does not need to change every possible outcome to be material.
 
 It is enough that accurate representation would reasonably be expected to change at least one important belief, decision, consent condition, trust assignment, precaution, allocation, coordination pattern, self-understanding, safety posture, or repair demand.
 
+## Magnitude of materiality
+
+Not every materially misleading gap has the same severity.
+
+A taxonomy of deception should distinguish the existence of deception from the magnitude of its materiality.
+
+### Negligible materiality
+
+The representation is technically misleading, but accurate representation would not reasonably be expected to change any important belief, action, consent condition, trust assignment, precaution, allocation, coordination pattern, self-understanding, safety posture, or repair demand.
+
+This is usually not deception in the strong sense, because the misleading gap lacks practical consequence.
+
+### Informational materiality
+
+Accurate representation would change what the receiver believes, understands, or remembers, but would not clearly change action, consent, risk, allocation, or coordination.
+
+This matters for truthfulness, education, explanation quality, and epistemic hygiene.
+
+### Decision materiality
+
+Accurate representation would likely change a choice.
+
+The receiver might buy, click, deploy, accept, reject, sign, publish, share, trust, delegate, continue, stop, or investigate differently.
+
+### Consent materiality
+
+Accurate representation would likely change whether the receiver consents, or the terms under which they consent.
+
+This is especially important for privacy, surveillance, medical decisions, experiments, contracts, intimate relationships, and human subjects research.
+
+### Trust materiality
+
+Accurate representation would likely change how much the receiver trusts the source, system, institution, claim, benchmark, explanation, or process.
+
+This is central to artificial intelligence safety because overtrust can produce unsafe delegation.
+
+### Safety materiality
+
+Accurate representation would likely change precautions, testing, deployment, monitoring, escalation, fallback planning, or exposure to harm.
+
+This is the level where a misleading gap becomes a safety issue rather than only an epistemic issue.
+
+### System materiality
+
+Accurate representation would likely change institutional, public, regulatory, organizational, or multi-agent coordination.
+
+This is the level where deception can affect governance, markets, public trust, scientific consensus, infrastructure, or civilizational risk.
+
+### Repair materiality
+
+Accurate representation would likely create a demand for correction, apology, compensation, redesign, rollback, disclosure, accountability, or oversight.
+
+This level matters because some deception is best identified by the repair that would become obviously necessary if the operative state were accurately understood.
+
+## Temporality of deception
+
+Deception is temporal. It can be analyzed by when the misleading gap is created, when it is active, when it is discovered, and when it is repaired.
+
+This matters because a representation may have been deceptive in the past, may still be deceiving in the present, or may be structured to deceive in the future.
+
+### Past deception
+
+Past deception is deception whose misleading gap was active in the past.
+
+The representation caused or sustained a materially misleading understanding at an earlier time, even if the receiver no longer believes it now.
+
+Past deception matters for accountability, repair, trust restoration, historical explanation, and learning from failure.
+
+A past deception can remain materially relevant if its effects continue through decisions, commitments, memories, institutions, contracts, deployments, or relationships that were shaped by the earlier misleading gap.
+
+### Present deception
+
+Present deception is ongoing deception.
+
+The receiver is currently forming, sustaining, or acting from a materially misleading understanding.
+
+Present deception matters because repair is still live: clarification, correction, warning, rollback, disclosure, or intervention may still prevent further harm.
+
+### Future deception
+
+Future deception is a case where a representation, system, plan, incentive, interface, or agent policy is expected to produce a materially misleading gap later if conditions unfold as anticipated.
+
+Future deception may be accidental, negligent, structural, intentional, or self-aware.
+
+It is not necessary that the receiver has already been misled. The relevant question is whether the current design or plan makes future misleading interpretation reasonably predictable.
+
+### Intentful future deception
+
+Intentful future deception is future deception in which the source currently expects, plans, or relies on a future receiver being misled.
+
+This includes cases where the source prepares ambiguity, omission, framing, timing, interface structure, or staged disclosure so that a future receiver will likely form the wrong understanding.
+
+Intentful future deception is not identical to ordinary strategic planning. It requires that the expected future advantage depends on a receiver-relevant misleading gap.
+
+### Latent deception
+
+Latent deception is a misleading gap that is built into a representation, system, institution, interface, or self-model but has not yet become active for a particular receiver.
+
+Example: a user interface contains wording that will predictably make future users misunderstand privacy settings, even before a specific user encounters it.
+
+Latent deception becomes present deception when a receiver actually forms or relies on the misleading interpretation.
+
+### Continuing deception
+
+Continuing deception is past deception that remains present because the misleading understanding has not been corrected.
+
+Example: a misleading safety claim was made months ago, but users, evaluators, or institutions still rely on it.
+
+Continuing deception is especially important because the original act may be past, but the epistemic harm remains active.
+
+### Discovered deception
+
+Discovered deception is deception whose misleading gap has been recognized by the receiver, source, evaluator, or third party.
+
+Discovery changes the repair obligations. Once a misleading gap is discovered, continuing to leave it uncorrected may become negligent, intentional, or self-aware deception depending on the awareness state of the source.
+
+### Repaired deception
+
+Repaired deception is deception whose misleading gap has been corrected enough that the receiver no longer relies on the materially false understanding.
+
+Repair may require more than a correction. It may require explanation, apology, compensation, redesign, rollback, audit, public clarification, or institutional change.
+
+### Temporal test
+
+To analyze the temporality of a deception case, ask:
+
+1. When was the representation created?
+2. When did the receiver form the misleading interpretation?
+3. When did the misleading interpretation affect belief, action, consent, trust, risk, allocation, coordination, self-understanding, safety, or repair?
+4. Is the misleading gap still active?
+5. Has the source discovered the misleading gap?
+6. Has the receiver discovered the misleading gap?
+7. Has the gap been repaired, or does it continue through downstream effects?
+8. Was future misunderstanding reasonably predictable at the time of representation or design?
+9. Was future misunderstanding expected, planned, or relied upon?
+
 ## The main distinction
 
 There are two separate questions.
@@ -192,7 +344,7 @@ This asks whether the receiver formed or relied on a materially misleading under
 
 ### Second question: what kind of deception was it?
 
-This asks whether the source was unaware, negligent, intentional, explicitly self-aware, structurally incentivized, or self-deceived.
+This asks whether the source was unaware, negligent, intentional, explicitly self-aware, structurally incentivized, self-deceived, or temporally extended.
 
 The first question detects the misleading condition.
 
@@ -205,6 +357,10 @@ The second question assigns responsibility, risk, and repair.
 3. Self-aware deception: the source explicitly understands the misleading gap while using it.
 4. Self-deception: the source and receiver are the same agent; the agent maintains a distorted self-understanding without fully realizing it.
 5. Self-aware self-deception: the same agent partly recognizes the distortion, but keeps preserving it because it serves a protective or evasive function.
+6. Past deception: the misleading gap was active earlier.
+7. Present deception: the misleading gap is active now.
+8. Future deception: the misleading gap is reasonably predictable later.
+9. Intentful future deception: the source expects, plans, or relies on a future misleading gap.
 
 ## Core claim
 
@@ -418,6 +574,10 @@ The key correction is that self-deception is not the next step after self-aware 
 | Self-aware deception | Between representation and receiver understanding | Source explicitly recognizes the misleading gap |
 | Self-deception | Within the same agent's self-model | Full awareness absent |
 | Self-aware self-deception | Within the same agent's self-model | Partial awareness present; distortion still maintained |
+| Past deception | Earlier receiver understanding or downstream effects | Depends on source awareness at the time |
+| Present deception | Current receiver understanding or reliance | Depends on current source awareness |
+| Future deception | Predicted future receiver understanding | Depends on current foreseeability |
+| Intentful future deception | Planned or relied-upon future misunderstanding | Source currently expects or relies on the future gap |
 
 ## Boundary rules
 
@@ -474,10 +634,12 @@ To analyze a possible deception case, ask these questions in order:
 4. What was actually operative?
 5. Is the gap between interpretation and operative state materially relevant?
 6. Which counterfactual would likely have changed under a more accurate representation?
-7. Did the source know the representation was likely to mislead?
-8. Did the source explicitly understand the misleading gap?
-9. Is this other-directed deception or self-directed deception?
-10. What repair would reduce the misleading gap?
+7. What is the magnitude of materiality?
+8. When was the misleading gap created, active, discovered, and repaired?
+9. Did the source know the representation was likely to mislead?
+10. Did the source explicitly understand the misleading gap?
+11. Is this other-directed deception or self-directed deception?
+12. What repair would reduce the misleading gap?
 
 This keeps detection separate from blame.
 
@@ -495,7 +657,7 @@ Self-aware self-deception is self-deception in which the agent partly recognizes
 
 ## Mathematical consistency check
 
-The taxonomy uses two main dimensions.
+The taxonomy uses three main dimensions.
 
 First, direction:
 
@@ -509,7 +671,14 @@ Second, awareness:
 - explicit misleading-gap awareness
 - partial self-awareness of distortion
 
-The terms are not all simple subsets of one linear chain, because self-deception changes the direction of the relation.
+Third, temporality:
+
+- past deception, where the misleading gap was active earlier
+- present deception, where the misleading gap is active now
+- future deception, where the misleading gap is reasonably predictable later
+- intentful future deception, where the source currently expects, plans, or relies on the later misleading gap
+
+The terms are not all simple subsets of one linear chain, because self-deception changes the direction of the relation, and temporality slices across both direction and awareness.
 
 The clean subset relations are:
 
@@ -517,14 +686,17 @@ The clean subset relations are:
 - intentional deception is a subset of deception
 - self-aware self-deception is a subset of self-deception
 - self-deception is a self-directed case of deception
+- intentful future deception is a subset of future deception
+- continuing deception is both past and present deception when an earlier misleading gap remains active
 
 So the more precise structure is:
 
 - deception is the broad base class
 - other-directed deception can become intentional deception, then self-aware deception
 - self-directed deception is self-deception, which can become self-aware self-deception when partial awareness is present
+- temporal categories describe when the misleading gap is created, active, discovered, repaired, or predicted
 
-This prevents the taxonomy from incorrectly treating self-deception as simply the next step after self-aware deception.
+This prevents the taxonomy from incorrectly treating self-deception as simply the next step after self-aware deception, or treating future deception as automatically intentional.
 
 ## Open questions
 
@@ -541,6 +713,8 @@ Open questions include:
 - Can an artificial intelligence system be said to self-deceive without humanlike consciousness?
 - What oversight tools can detect self-aware deception rather than only false statements?
 - How should repair differ between accidental, negligent, intentional, and self-aware deception?
+- How should counterfactual materiality be measured when the receiver is a group, institution, or model?
+- When does future deception become concrete enough to require intervention?
 
 ## Working status
 
