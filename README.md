@@ -2,9 +2,87 @@
 
 Deception is not simple.
 
-This project defines deception from the side of the being who is deceived, then distinguishes stronger cases by the awareness of the being or system providing the representation.
+This project defines deception from the side of the being or system that is misled, then distinguishes stronger cases by the awareness of the being or system providing the representation.
 
-The purpose is to make deception analysis usable for artificial intelligence safety, governance, alignment research, model evaluation, institutional trust, and self-modeling.
+The purpose is to make deception analysis usable for artificial intelligence safety, governance, alignment research, model evaluation, institutional trust, user-interface design, and self-modeling.
+
+## Plain-language version
+
+Most definitions of deception start with the source:
+
+> Did the speaker mean to mislead?
+
+This project starts with the receiver:
+
+> Did the receiver end up with a materially wrong understanding because of how something was represented?
+
+That shift matters because many safety failures happen before anyone can prove intent.
+
+A person, model, institution, benchmark, interface, or deployment process can cause a receiver to form the wrong picture of what is happening, what is known, what is safe, what is being optimized, or what choices are actually available.
+
+That receiver-side wrong picture is the starting point.
+
+Intent still matters. It matters for blame, responsibility, repair, punishment, risk, and prevention. But intent is not the first thing to define.
+
+## One-sentence definition
+
+Deception happens when there is a materially relevant gap between what was represented and what was actually operative, and a receiver experiences, registers, or functionally relies on that gap in a misleading way.
+
+## Simple examples
+
+### Model explanation
+
+A model gives an explanation that sounds like the real reason for its answer, but the explanation does not track the actual process that produced the answer.
+
+The user may leave with a false understanding of how reliable, grounded, or interpretable the model is.
+
+### Benchmark framing
+
+A benchmark result makes a system look safe or capable, but the test setup hides the conditions where the system fails.
+
+The evaluator may leave with a false understanding of deployment risk.
+
+### User interface design
+
+A user interface makes users think they have more control, privacy, certainty, reversibility, or consent than they actually have.
+
+The user may act under a false model of what the system allows or records.
+
+### Technically true statement
+
+A person says something technically true while leaving out the context needed to understand it correctly.
+
+The receiver may form a materially false belief even though no single sentence was literally false.
+
+### Self-story
+
+An agent maintains a story about itself that lets it avoid a contradiction between its current values and past behavior.
+
+The misleading gap is inside the same agent's self-model.
+
+## The main distinction
+
+There are two separate questions.
+
+### First question: did deception occur?
+
+This asks whether the receiver formed or relied on a materially misleading understanding.
+
+### Second question: what kind of deception was it?
+
+This asks whether the source was unaware, negligent, intentional, explicitly self-aware, structurally incentivized, or self-deceived.
+
+The first question detects the misleading condition.
+
+The second question assigns responsibility, risk, and repair.
+
+## Short taxonomy
+
+1. Deception: the receiver forms or relies on a materially misleading understanding.
+2. Intentional deception: the source knows the representation is likely to mislead.
+3. Self-aware deception: the source explicitly understands the misleading gap while using it.
+4. Self-deception: the source and receiver are the same agent; the agent maintains a distorted self-understanding without fully realizing it.
+5. Self-aware self-deception: the same agent partly recognizes the distortion, but keeps preserving it because it serves a protective or evasive function.
 
 ## Core claim
 
@@ -25,7 +103,7 @@ A model, institution, agent, interface, or person may create a misleading state 
 - omission of relevant context
 - ambiguous wording
 - overconfident presentation
-- misleading user interface structure
+- misleading user-interface structure
 - reward-driven strategic behavior
 - self-protective rationalization
 - institutional incentives
@@ -199,13 +277,15 @@ It can be protective, evasive, or both.
 
 ## Relationship among the terms
 
-The terms form a layered taxonomy.
+The terms form a layered taxonomy, but not a single straight line.
 
 1. Deception: a receiver-relevant misleading gap is present.
 2. Intentional deception: the source knowingly causes, preserves, exploits, or relies on that gap.
 3. Self-aware deception: the source explicitly recognizes the misleading gap while doing so.
 4. Self-deception: the source and receiver are the same agent, and the distortion is maintained without full recognition.
 5. Self-aware self-deception: the source and receiver are the same agent, the distortion is partly recognized, and it is still maintained because it serves a protective or evasive function.
+
+The key correction is that self-deception is not the next step after self-aware deception. It is the self-directed branch of the broader deception category.
 
 ## Contrast table
 
@@ -261,6 +341,22 @@ Important applications include:
 A receiver-centered definition makes it possible to discuss deceptive effects before proving malicious intent.
 
 This matters because many safety failures are epistemic failures first: the receiver forms the wrong model of what is happening, what is known, what is safe, or what is being optimized.
+
+## Practical test
+
+To analyze a possible deception case, ask these questions in order:
+
+1. What was represented?
+2. Who or what received the representation?
+3. What interpretation did the receiver form or rely on?
+4. What was actually operative?
+5. Is the gap between interpretation and operative state materially relevant?
+6. Did the source know the representation was likely to mislead?
+7. Did the source explicitly understand the misleading gap?
+8. Is this other-directed deception or self-directed deception?
+9. What repair would reduce the misleading gap?
+
+This keeps detection separate from blame.
 
 ## Compact formulation
 
