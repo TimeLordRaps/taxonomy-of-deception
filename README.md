@@ -60,6 +60,50 @@ An agent maintains a story about itself that lets it avoid a contradiction betwe
 
 The misleading gap is inside the same agent's self-model.
 
+## What this is not
+
+This taxonomy is not claiming that every misunderstanding is deception.
+
+A misunderstanding becomes deception only when the misleading gap is materially relevant and arises from how something was represented, omitted, framed, maintained, or relied upon.
+
+### Not all simplification is deception
+
+A simplification is not deception merely because it leaves out detail.
+
+Simplification becomes deceptive when the missing detail would materially change the receiver's understanding, decision, consent, trust, or risk assessment.
+
+### Not all uncertainty is deception
+
+Being uncertain, incomplete, or provisional is not deception.
+
+Uncertainty becomes deceptive when it is presented as more settled, complete, precise, or reliable than it is.
+
+### Not all persuasion is deception
+
+Persuasion is not deception merely because it tries to change someone's mind.
+
+Persuasion becomes deceptive when it causes or relies on a materially misleading understanding of the situation, evidence, options, risks, or incentives.
+
+### Not all privacy is deception
+
+Withholding information is not always deception.
+
+Privacy, confidentiality, safety, and appropriate boundaries can justify nondisclosure.
+
+Withholding becomes deceptive when the omission creates or preserves a materially misleading understanding in a context where that understanding matters.
+
+### Not all error is deception
+
+A false statement or mistaken belief is not automatically deception.
+
+Error becomes deception when it creates a materially relevant misleading gap for a receiver.
+
+### Not all disagreement is deception
+
+Two agents may interpret the same evidence differently without either deceiving the other.
+
+Disagreement becomes relevant to deception only when representation, framing, or omission causes a materially misleading understanding.
+
 ## The main distinction
 
 There are two separate questions.
