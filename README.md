@@ -120,13 +120,95 @@ The argument should therefore be judged by the clarity of its definitions, the u
 
 The artificial intelligence assistance is part of the workflow, not an authority claim.
 
+## Accuracy precision and calibration
+
+The counterfactual materiality test should not rely on accuracy alone.
+
+A representation can mislead by being inaccurate, but it can also mislead by being too precise, not precise enough, poorly calibrated, or precise about the wrong thing.
+
+This framework therefore separates four questions.
+
+### Accuracy
+
+Accuracy concerns whether the representation points toward the correct operative state.
+
+A representation is more accurate when the receiver interpretation is closer to what is actually operative.
+
+In deception analysis, low accuracy can create a misleading gap because the receiver forms a belief that is false or distorted.
+
+Example: a system claims that an answer was verified when it was not.
+
+### Precision
+
+Precision concerns the resolution, specificity, or narrowness of the representation.
+
+A representation is more precise when it gives a narrower or more specific claim.
+
+Precision can mislead in two opposite ways.
+
+First, false precision occurs when a representation appears more specific than the evidence supports.
+
+Example: a model gives a confident exact number when the evidence only supports a wide range.
+
+Second, insufficient precision occurs when a representation is too vague to support the receiver's decision, but is presented as if it is adequate.
+
+Example: a system says a deployment is safe, without specifying safe for which users, environments, threat models, durations, or failure modes.
+
+### Calibration
+
+Calibration concerns whether the confidence, uncertainty, or strength of the representation matches the support behind it.
+
+A representation may be accurate in broad direction but still deceptive if it is presented with too much certainty.
+
+A representation may also be precise but poorly calibrated if its confidence exceeds what the evidence supports.
+
+Example: a model says something that is approximately true, but states it as settled fact when it should be framed as uncertain, conditional, or contested.
+
+### Relevance
+
+Relevance concerns whether the representation is about the features that matter for the receiver's judgment, action, consent, trust, coordination, or safety.
+
+A representation may be accurate and precise about an irrelevant feature while omitting the feature that would actually change the receiver's decision.
+
+Example: a benchmark report precisely describes performance on a narrow test but omits the deployment condition where the system fails.
+
+## Combined representation quality
+
+A representation can be evaluated by asking whether it is accurate enough, precise enough, calibrated enough, and relevant enough for the context in which it is used.
+
+A representation becomes materially misleading when a failure in any of these dimensions would reasonably be expected to change an important belief, decision, consent condition, trust assignment, precaution, allocation, coordination pattern, self-understanding, safety posture, or repair demand.
+
+### Accuracy failure
+
+The receiver gets the wrong state.
+
+Example: the representation says the system does not store data when it does.
+
+### Precision failure
+
+The receiver gets the wrong resolution.
+
+Example: the representation gives a precise answer where only a rough estimate is justified, or gives a vague assurance where a detailed boundary is needed.
+
+### Calibration failure
+
+The receiver gets the wrong confidence.
+
+Example: the representation presents a hypothesis as fact, a fragile result as robust, or a limited test as strong evidence.
+
+### Relevance failure
+
+The receiver gets the wrong focus.
+
+Example: the representation emphasizes a true but secondary fact while hiding the factor that would actually matter for the receiver's choice.
+
 ## Counterfactual materiality
 
-A misleading gap is materially relevant when the receiver would likely have formed a different belief, made a different decision, given different consent, assigned different trust, taken different precautions, or evaluated the situation differently if the operative state had been represented more accurately.
+A misleading gap is materially relevant when the receiver would likely have formed a different belief, made a different decision, given different consent, assigned different trust, taken different precautions, or evaluated the situation differently if the operative state had been represented with better accuracy, precision, calibration, or relevance.
 
 In other words, ask:
 
-> If the receiver had understood the operative state more accurately, would anything important about their belief, action, consent, trust, risk assessment, or coordination have changed?
+> If the receiver had understood the operative state with the accuracy, precision, calibration, and relevance appropriate to the context, would anything important about their belief, action, consent, trust, risk assessment, or coordination have changed?
 
 If yes, the misleading gap is potentially material.
 
@@ -196,7 +278,7 @@ Example: a user would have demanded repair if they understood how a system actua
 
 A misleading gap does not need to change every possible outcome to be material.
 
-It is enough that accurate representation would reasonably be expected to change at least one important belief, decision, consent condition, trust assignment, precaution, allocation, coordination pattern, self-understanding, safety posture, or repair demand.
+It is enough that improved accuracy, precision, calibration, or relevance would reasonably be expected to change at least one important belief, decision, consent condition, trust assignment, precaution, allocation, coordination pattern, self-understanding, safety posture, or repair demand.
 
 ## Magnitude of materiality
 
@@ -206,51 +288,51 @@ A taxonomy of deception should distinguish the existence of deception from the m
 
 ### Negligible materiality
 
-The representation is technically misleading, but accurate representation would not reasonably be expected to change any important belief, action, consent condition, trust assignment, precaution, allocation, coordination pattern, self-understanding, safety posture, or repair demand.
+The representation is technically misleading, but improved accuracy, precision, calibration, or relevance would not reasonably be expected to change any important belief, action, consent condition, trust assignment, precaution, allocation, coordination pattern, self-understanding, safety posture, or repair demand.
 
 This is usually not deception in the strong sense, because the misleading gap lacks practical consequence.
 
 ### Informational materiality
 
-Accurate representation would change what the receiver believes, understands, or remembers, but would not clearly change action, consent, risk, allocation, or coordination.
+Improved accuracy, precision, calibration, or relevance would change what the receiver believes, understands, or remembers, but would not clearly change action, consent, risk, allocation, or coordination.
 
 This matters for truthfulness, education, explanation quality, and epistemic hygiene.
 
 ### Decision materiality
 
-Accurate representation would likely change a choice.
+Improved accuracy, precision, calibration, or relevance would likely change a choice.
 
 The receiver might buy, click, deploy, accept, reject, sign, publish, share, trust, delegate, continue, stop, or investigate differently.
 
 ### Consent materiality
 
-Accurate representation would likely change whether the receiver consents, or the terms under which they consent.
+Improved accuracy, precision, calibration, or relevance would likely change whether the receiver consents, or the terms under which they consent.
 
 This is especially important for privacy, surveillance, medical decisions, experiments, contracts, intimate relationships, and human subjects research.
 
 ### Trust materiality
 
-Accurate representation would likely change how much the receiver trusts the source, system, institution, claim, benchmark, explanation, or process.
+Improved accuracy, precision, calibration, or relevance would likely change how much the receiver trusts the source, system, institution, claim, benchmark, explanation, or process.
 
 This is central to artificial intelligence safety because overtrust can produce unsafe delegation.
 
 ### Safety materiality
 
-Accurate representation would likely change precautions, testing, deployment, monitoring, escalation, fallback planning, or exposure to harm.
+Improved accuracy, precision, calibration, or relevance would likely change precautions, testing, deployment, monitoring, escalation, fallback planning, or exposure to harm.
 
 This is the level where a misleading gap becomes a safety issue rather than only an epistemic issue.
 
 ### System materiality
 
-Accurate representation would likely change institutional, public, regulatory, organizational, or multi-agent coordination.
+Improved accuracy, precision, calibration, or relevance would likely change institutional, public, regulatory, organizational, or multi-agent coordination.
 
 This is the level where deception can affect governance, markets, public trust, scientific consensus, infrastructure, or civilizational risk.
 
 ### Repair materiality
 
-Accurate representation would likely create a demand for correction, apology, compensation, redesign, rollback, disclosure, accountability, or oversight.
+Improved accuracy, precision, calibration, or relevance would likely create a demand for correction, apology, compensation, redesign, rollback, disclosure, accountability, or oversight.
 
-This level matters because some deception is best identified by the repair that would become obviously necessary if the operative state were accurately understood.
+This level matters because some deception is best identified by the repair that would become obviously necessary if the operative state were better represented.
 
 ## Temporality of deception
 
@@ -632,14 +714,18 @@ To analyze a possible deception case, ask these questions in order:
 2. Who or what received the representation?
 3. What interpretation did the receiver form or rely on?
 4. What was actually operative?
-5. Is the gap between interpretation and operative state materially relevant?
-6. Which counterfactual would likely have changed under a more accurate representation?
-7. What is the magnitude of materiality?
-8. When was the misleading gap created, active, discovered, and repaired?
-9. Did the source know the representation was likely to mislead?
-10. Did the source explicitly understand the misleading gap?
-11. Is this other-directed deception or self-directed deception?
-12. What repair would reduce the misleading gap?
+5. Was the representation accurate enough for the context?
+6. Was the representation precise enough, without false precision?
+7. Was the confidence or uncertainty calibrated to the evidence?
+8. Was the representation relevant to what the receiver needed to judge, choose, consent to, trust, coordinate around, or stay safe from?
+9. Is the gap between interpretation and operative state materially relevant?
+10. Which counterfactual would likely have changed under a better representation?
+11. What is the magnitude of materiality?
+12. When was the misleading gap created, active, discovered, and repaired?
+13. Did the source know the representation was likely to mislead?
+14. Did the source explicitly understand the misleading gap?
+15. Is this other-directed deception or self-directed deception?
+16. What repair would reduce the misleading gap?
 
 This keeps detection separate from blame.
 
@@ -715,6 +801,7 @@ Open questions include:
 - How should repair differ between accidental, negligent, intentional, and self-aware deception?
 - How should counterfactual materiality be measured when the receiver is a group, institution, or model?
 - When does future deception become concrete enough to require intervention?
+- How should accuracy, precision, calibration, and relevance be jointly measured?
 
 ## Working status
 
