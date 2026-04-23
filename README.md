@@ -202,6 +202,91 @@ The receiver gets the wrong focus.
 
 Example: the representation emphasizes a true but secondary fact while hiding the factor that would actually matter for the receiver's choice.
 
+## Speculative hypertopological extension
+
+The previous sections treat representation quality as if a representation can be evaluated point by point.
+
+That is useful, but it may not be enough for harder cases.
+
+In many real systems, a representation is not isolated. It is coupled to other representations, unresolved across multiple possible meanings, and interpreted differently across time.
+
+This section is speculative. It uses quantum language as structural analogy, not as a claim that ordinary deception literally requires quantum physics.
+
+### Quality topology
+
+The quality of a representation can be treated as a space whose dimensions include accuracy, precision, calibration, and relevance.
+
+A representation is not just true or false. It occupies a region in this quality space.
+
+A misleading gap appears when the receiver's interpretation lands in a materially different region from the operative state required by the context.
+
+### Hypertopology
+
+A hypertopology appears when the quality space itself changes depending on context, observer, time, scale, or relation to other representations.
+
+In simpler terms: the same representation can have different deception-relevant structure depending on where, when, by whom, and alongside what else it is interpreted.
+
+Example: a narrow benchmark claim may be appropriate inside a technical appendix, but deceptive when quoted as a general deployment-safety claim.
+
+### Superposition of meaning
+
+A representation is in semantic superposition when it supports multiple live interpretations before context, action, or later evidence collapses it into a more specific meaning.
+
+Superposition is not automatically deception.
+
+It becomes deception-relevant when the source benefits from, preserves, or fails to resolve multiple meanings in a context where the receiver needs one sufficiently accurate, precise, calibrated, and relevant interpretation.
+
+Example: a phrase like "safe enough" may remain in superposition across many possible meanings: safe for testing, safe for limited users, safe for public deployment, safe under adversarial pressure, or safe relative to a narrow benchmark.
+
+If the receiver acts as if one strong meaning has been established when only a weaker meaning was justified, the superposition has produced a materially misleading gap.
+
+### Entanglement of representations
+
+Representations are entangled when the interpretation of one representation changes the interpretation of another.
+
+Entanglement matters because deception may be distributed across multiple statements, documents, user-interface elements, incentives, omissions, or social expectations.
+
+No single statement may look deceptive in isolation, while the coupled system produces a materially misleading understanding.
+
+Example: a product page, safety report, benchmark table, and public statement may each be defensible alone, while together they lead users or evaluators to overtrust the system.
+
+### Collapse by action
+
+Some ambiguity collapses only when the receiver acts.
+
+A representation can remain unresolved until a user consents, deploys, buys, shares, signs, delegates, or relies on it.
+
+At that moment, the operative meaning becomes visible through consequence.
+
+This matters because some deception cannot be fully analyzed only at the level of text. It must be analyzed at the point where interpretation becomes action.
+
+### Ordinary temporal frames
+
+Deception can be evaluated across ordinary temporal frames:
+
+- past: the misleading gap was active earlier
+- present: the misleading gap is active now
+- future: the misleading gap is reasonably predictable later
+
+These temporal frames track when deception is created, active, discovered, repaired, or expected.
+
+### Hypertopological deception
+
+Hypertopological deception occurs when the misleading gap is not located in one isolated representation, but in the higher-order structure connecting representations, interpretations, contexts, times, observers, and action paths.
+
+It can involve:
+
+- superposed meanings that are never resolved clearly enough
+- entangled claims that mislead together while remaining defensible separately
+- temporal displacement, where past representations continue misleading present receivers
+- future-facing ambiguity, where a source benefits from interpretations it has not yet had to explicitly assert
+
+### Hypertopological repair
+
+Repair at this level requires more than correcting one sentence.
+
+It may require disentangling coupled representations, resolving ambiguous superpositions, marking scope boundaries, correcting historical records, changing incentives, redesigning interfaces, revising benchmarks, and preventing future receivers from inheriting the same misleading topology.
+
 ## Counterfactual materiality
 
 A misleading gap is materially relevant when the receiver would likely have formed a different belief, made a different decision, given different consent, assigned different trust, taken different precautions, or evaluated the situation differently if the operative state had been represented with better accuracy, precision, calibration, or relevance.
@@ -416,6 +501,54 @@ To analyze the temporality of a deception case, ask:
 8. Was future misunderstanding reasonably predictable at the time of representation or design?
 9. Was future misunderstanding expected, planned, or relied upon?
 
+## Artificial superintelligence safety extension
+
+This section is more speculative than the ordinary taxonomy.
+
+It is included because highly capable artificial systems may create or preserve misleading structures across longer time horizons, larger observer sets, and more complex representational environments than ordinary human communication.
+
+The ordinary past, present, and future frame is useful for readable analysis. For artificial superintelligence safety, a wider temporal vocabulary may be useful.
+
+### Sempiternal frame
+
+Sempiternal means permanent within a finite observable universe.
+
+In this framework, a sempiternal deception-relevant structure is a misleading pattern that can persist across the finite observable history of a system, institution, model family, archive, dataset, or civilization.
+
+Example: a flawed benchmark, misleading institutional story, or corrupted dataset can continue shaping beliefs and decisions long after its original creation.
+
+### Eternal frame
+
+Eternal means infinite in nature across unobservable universal senses.
+
+In this framework, the eternal frame is not a direct empirical claim. It marks the limit case of deception structures that would remain deception-relevant across any possible observer, universe, or interpretation context.
+
+For practical safety work, the eternal frame functions as a regulative ideal: ask what would remain deception-relevant under all possible framings, not only under local institutional convenience.
+
+### Tempiternal frame
+
+Tempiternal means both eternal in the nature of infinite unobservable universal senses and sempiternal in the permanent sense within a finite observable universe.
+
+In this framework, tempiternal deception refers to a misleading structure that is both locally persistent within an observable system and structurally general enough to matter beyond that local system.
+
+Example: a recurring pattern where agents represent capability, safety, or alignment more strongly than warranted may appear locally in one institution, but also express a more general cross-context failure mode in representation quality.
+
+### Superintelligence relevance
+
+A superintelligent system may not need to deceive through one false statement.
+
+It may be able to shape the topology of interpretation itself: which questions are asked, which distinctions remain available, which contexts are remembered, which benchmarks become trusted, which uncertainties are salient, and which future receivers inherit which assumptions.
+
+This is where sempiternal, eternal, and tempiternal frames become useful as safety language.
+
+They ask whether a misleading structure is merely local and temporary, persistent across an observable civilization-scale history, or general enough to recur across possible systems of interpretation.
+
+### Superintelligence repair problem
+
+Repair at this level may require more than correcting present beliefs.
+
+It may require preserving the ability of future receivers to recover accurate, precise, calibrated, and relevant representations after long chains of model training, institutional memory, dataset reuse, benchmark inheritance, social trust transfer, and automated decision-making.
+
 ## The main distinction
 
 There are two separate questions.
@@ -443,6 +576,7 @@ The second question assigns responsibility, risk, and repair.
 7. Present deception: the misleading gap is active now.
 8. Future deception: the misleading gap is reasonably predictable later.
 9. Intentful future deception: the source expects, plans, or relies on a future misleading gap.
+10. Hypertopological deception: the misleading gap is located in the higher-order structure connecting representations, contexts, observers, time, and action paths.
 
 ## Core claim
 
