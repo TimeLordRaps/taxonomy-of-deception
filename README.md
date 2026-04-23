@@ -104,6 +104,84 @@ Two agents may interpret the same evidence differently without either deceiving 
 
 Disagreement becomes relevant to deception only when representation, framing, or omission causes a materially misleading understanding.
 
+## Counterfactual materiality
+
+A misleading gap is materially relevant when the receiver would likely have formed a different belief, made a different decision, given different consent, assigned different trust, taken different precautions, or evaluated the situation differently if the operative state had been represented more accurately.
+
+In other words, ask:
+
+> If the receiver had understood the operative state more accurately, would anything important about their belief, action, consent, trust, risk assessment, or coordination have changed?
+
+If yes, the misleading gap is potentially material.
+
+Counterfactual materiality can appear in several ways.
+
+### Belief counterfactual
+
+The receiver would have believed something different.
+
+Example: a model explanation makes a user believe the answer came from verified reasoning when it actually came from a shallow pattern match or unsupported guess.
+
+### Action counterfactual
+
+The receiver would have acted differently.
+
+Example: a user clicks, buys, deploys, shares, signs, accepts, or continues because the representation made the situation appear safer, clearer, cheaper, more reversible, or more reliable than it was.
+
+### Consent counterfactual
+
+The receiver would not have agreed, or would have agreed only under different terms.
+
+Example: a person agrees to data collection, monitoring, evaluation, or participation under a mistaken understanding of what is being recorded, inferred, retained, shared, or optimized.
+
+### Trust counterfactual
+
+The receiver would have assigned less trust or relied on the source less strongly.
+
+Example: a benchmark, credential, explanation, or interface makes a system appear more robust, honest, secure, or aligned than the evidence supports.
+
+### Risk counterfactual
+
+The receiver would have taken different precautions.
+
+Example: a safety report, product claim, or model answer omits known failure conditions that would have changed how the receiver managed risk.
+
+### Allocation counterfactual
+
+The receiver would have allocated time, money, attention, compute, authority, or opportunity differently.
+
+Example: an organization gives more resources or deployment access to a system because its limitations were represented in a way that hid relevant downside.
+
+### Coordination counterfactual
+
+The receiver would have coordinated differently with other agents.
+
+Example: a team, public, regulator, evaluator, or user community forms shared expectations from a misleading representation and then coordinates around the wrong model.
+
+### Self-model counterfactual
+
+The agent would have understood itself differently.
+
+Example: an agent preserves a self-story that avoids a conflict between current values and past actions; with a more accurate self-model, it would choose repair, change, or different future commitments.
+
+### Safety counterfactual
+
+The receiver would have avoided, delayed, constrained, tested, or escalated the situation differently.
+
+Example: a system is presented as safe enough for deployment, but accurate representation of uncertainty or failure modes would have triggered further evaluation.
+
+### Repair counterfactual
+
+The receiver would have sought correction, apology, compensation, redesign, clarification, rollback, or oversight.
+
+Example: a user would have demanded repair if they understood how a system actually made, shaped, or used a consequential decision.
+
+### Practical threshold
+
+A misleading gap does not need to change every possible outcome to be material.
+
+It is enough that accurate representation would reasonably be expected to change at least one important belief, decision, consent condition, trust assignment, precaution, allocation, coordination pattern, self-understanding, safety posture, or repair demand.
+
 ## The main distinction
 
 There are two separate questions.
@@ -395,10 +473,11 @@ To analyze a possible deception case, ask these questions in order:
 3. What interpretation did the receiver form or rely on?
 4. What was actually operative?
 5. Is the gap between interpretation and operative state materially relevant?
-6. Did the source know the representation was likely to mislead?
-7. Did the source explicitly understand the misleading gap?
-8. Is this other-directed deception or self-directed deception?
-9. What repair would reduce the misleading gap?
+6. Which counterfactual would likely have changed under a more accurate representation?
+7. Did the source know the representation was likely to mislead?
+8. Did the source explicitly understand the misleading gap?
+9. Is this other-directed deception or self-directed deception?
+10. What repair would reduce the misleading gap?
 
 This keeps detection separate from blame.
 
@@ -412,7 +491,7 @@ Self-aware deception is intentional deception in which the source explicitly rec
 
 Self-deception is deception in which the source and receiver are the same agent, and the agent sustains a materially distorted self-representation without fully recognizing that it is doing so.
 
-Self-aware self-deception is self-deception in which the agent partly recognizes that its maintained self-account is distorted, yet continues preserving it because the distortion serves a protective or evasive function.
+Self-aware self-deception is self-deception in which the agent partly recognizes that its maintained self-account is distorted, yet continues preserving it because it serves a protective or evasive function.
 
 ## Mathematical consistency check
 
