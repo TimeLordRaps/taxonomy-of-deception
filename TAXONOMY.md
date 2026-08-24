@@ -35,6 +35,27 @@ empirical AI-deception research, provenance standards, and documentation practic
 Those sources motivate or challenge parts of this proposal; they do not validate the
 taxonomy as a whole.
 
+## The repository name as a self-referential example
+
+The public repository retains the slug `taxonomy-of-deception`, while the project is
+titled *Taxonomy of Misrepresentation*. This is deliberate. The repository name is the
+narrower representation that initially frames the work; the document exposes the
+broader operative scope that emerged from the inquiry.
+
+The mismatch illustrates three points:
+
+1. a label begins shaping reception before the full content is read;
+2. a representation can be directionally related yet less precise than its operative
+   subject; and
+3. noticing such a gap does not establish deception.
+
+Here the naming decision and its purpose are disclosed. Classifying it as deception
+would still require evidence of a materially misleading reception, contribution from
+the name to that reception, and a deceptive bridge. The example is meta-aware without
+exempting itself from the taxonomy's non-upgrade rules.
+
+---
+
 ## One-sentence definition
 
 **A misrepresentation classification is supported when evidence binds a materially
