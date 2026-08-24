@@ -15,10 +15,10 @@ of projects that later produced
 on one difficult domain question: when may an observer move from “this artifact was
 misleading” to “an agent intentionally or strategically deceived”?
 
-The repository slug `taxonomy-of-deception` remains as a historical coordinate for
-that motivating question. The project's title is *Taxonomy of Misrepresentation*
-because the inquiry produced a more precise root category: deception is the narrower,
-intent-bearing subtype.
+The repository was renamed when that inquiry produced a more precise root category:
+misrepresentation is the general structure, while deception is its narrower,
+intent-bearing subtype. The rename aligns the public coordinate with the operative
+scope instead of preserving an avoidable naming mismatch.
 
 VSTD generalizes the underlying discipline beyond deception. It provides a standard
 domain language for mapping claim boundaries and portable result semantics across

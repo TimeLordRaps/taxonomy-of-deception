@@ -6,7 +6,7 @@ intentional or strategic deception.**
 [![License: Apache-2.0](https://img.shields.io/badge/license-Apache--2.0-2f7d6d.svg)](LICENSE)
 [![Status: research draft](https://img.shields.io/badge/status-research%20draft-d97706.svg)](#status-and-limits)
 
-**[Read the navigable site](https://timelordraps.github.io/taxonomy-of-deception/)**
+**[Read the navigable site](https://timelordraps.github.io/taxonomy-of-misrepresentation/)**
 
 This project asks a narrow question that is easy to overstate:
 
@@ -46,20 +46,6 @@ This repository is an intellectual predecessor and domain-specific companion to
 [verifier-standard (VSTD)](https://github.com/TimeLordRaps/verifier). It captured an
 intermediate problem in the development path that later produced VSTD: how to prevent
 an assessment from silently becoming stronger than its evidence.
-
-### Why the repository is still named `taxonomy-of-deception`
-
-The repository slug is intentionally retained as both a historical coordinate and a
-self-referential example. `taxonomy-of-deception` is the narrower representation that
-first frames the reader's expectation; *Taxonomy of Misrepresentation* is the broader
-operative scope reached by the work. The gap draws attention to how a label can shape
-reception before the underlying distinctions are inspected.
-
-That mismatch is disclosed rather than hidden. It is therefore **not automatically an
-example of deception** under this taxonomy: a deception classification would still
-require evidence of reception, material divergence, contribution, and a deceptive
-bridge. The name demonstrates the depth at which misrepresentation can operate without
-using its own lesson to overclaim intent.
 
 The projects now have different jobs:
 
@@ -104,7 +90,7 @@ Useful review includes:
 4. evidence that a proposed facet cannot be observed or falsified; and
 5. places where existing research already uses a better term.
 
-Use [GitHub issues](https://github.com/TimeLordRaps/taxonomy-of-deception/issues) for
+Use [GitHub issues](https://github.com/TimeLordRaps/taxonomy-of-misrepresentation/issues) for
 public, bounded counterexamples. Do not post private evidence, personal data, or
 unsupported accusations about identifiable parties.
 

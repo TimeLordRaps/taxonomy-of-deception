@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- Renamed the public repository to `taxonomy-of-misrepresentation` so its coordinate
+  matches the project's root category rather than its narrower intentional subtype.
 - Split the original long-form essay into a concise README and full taxonomy.
 - Clarified that misrepresentation requires evidence of representation contribution,
   not provenance or chronology alone.

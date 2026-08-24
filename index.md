@@ -67,19 +67,6 @@ one domain; VSTD generalizes the claim-boundary discipline so results from diffe
 verification substrates can be expressed and compared without replacing the native
 verifiers.
 
-### Why the URL still says `taxonomy-of-deception`
-
-The repository name is intentionally retained as a historical coordinate and a
-self-referential example. It is the narrower label that first frames a visitor's
-expectation; *Taxonomy of Misrepresentation* is the broader operative scope exposed by
-the work. The gap demonstrates how a representation can shape reception before its
-underlying distinctions are inspected.
-
-Because the mismatch is disclosed, it is not automatically an example of deception.
-The taxonomy would still require evidence of material reception, contribution, and a
-deceptive bridge. The name brings attention to the depth of possible
-misrepresentation without silently presuming intent.
-
 ## Project boundary
 
 This is a founder-maintained research draft. It is not a lie detector, legal test,
