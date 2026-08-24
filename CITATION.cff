@@ -1,0 +1,8 @@
+cff-version: 1.2.0
+message: "If you use this research draft, cite the repository and exact commit."
+title: "Taxonomy of Misrepresentation"
+type: software
+authors:
+  - alias: TimeLordRaps
+repository-code: "https://github.com/TimeLordRaps/taxonomy-of-deception"
+license: Apache-2.0

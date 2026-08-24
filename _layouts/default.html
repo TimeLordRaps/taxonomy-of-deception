@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#153b45">
+    <meta name="description" content="{{ page.description | default: site.description | escape }}">
+    <title>{% if page.title %}{{ page.title | escape }} · {% endif %}{{ site.title | escape }}</title>
+    <link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}">
+  </head>
+  <body>
+    <a class="skip-link" href="#content">Skip to content</a>
+    <header class="site-header">
+      <div class="shell">
+        <a class="site-title" href="{{ '/' | relative_url }}">Taxonomy of Misrepresentation</a>
+        <p class="site-subtitle">Representation before accusation. Evidence before intent.</p>
+        <nav aria-label="Primary">
+          <a href="{{ '/' | relative_url }}">Overview</a>
+          <a href="{{ '/taxonomy/' | relative_url }}">Taxonomy</a>
+          <a href="{{ '/agent-misrepresentation/' | relative_url }}">AI agents</a>
+          <a href="{{ '/examples/' | relative_url }}">Examples</a>
+          <a href="{{ '/vstd-relation/' | relative_url }}">VSTD</a>
+          <a href="{{ '/references/' | relative_url }}">Sources</a>
+          <a href="{{ '/contributing/' | relative_url }}">Contribute</a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="content" class="shell page-content">
+      <article>
+        {{ content }}
+      </article>
+    </main>
+
+    <footer class="site-footer">
+      <div class="shell">
+        <p>Founder-maintained research draft · not a detector, legal test, or adopted standard.</p>
+        <p>
+          <a href="https://github.com/TimeLordRaps/taxonomy-of-deception">GitHub repository</a>
+          ·
+          <a href="https://github.com/TimeLordRaps/verifier">verifier-standard</a>
+        </p>
+      </div>
+    </footer>
+  </body>
+</html>

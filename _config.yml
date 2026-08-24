@@ -1,0 +1,15 @@
+title: Taxonomy of Misrepresentation
+description: A receiver-first vocabulary for bounded claims about misrepresentation and intentional deception.
+url: https://timelordraps.github.io
+baseurl: /taxonomy-of-deception
+repository: TimeLordRaps/taxonomy-of-deception
+markdown: kramdown
+permalink: pretty
+exclude:
+  - README.md
+  - CHANGELOG.md
+  - CITATION.cff
+  - LICENSE
+  - NOTICE
+  - Gemfile
+  - Gemfile.lock
