@@ -584,6 +584,64 @@ complete path coverage.
 
 ---
 
+## Formal game-theoretic proof: Deception failure in a verification regime
+
+This section formalizes why deception is non-viable and strictly dominated in a verifiable execution and claim regime, establishing why **truthfulness (including the honest refusal to claim, i.e., emitting `UNKNOWN`) is the unique optimal policy**.
+
+### Mathematical Model
+
+Consider a signaling and verification game between two agents:
+- A **Sender** (prover, computational agent, or publisher) $\mathcal{S}$.
+- A **Receiver / Verifier** (auditor, evaluator, or kernel) $\mathcal{V}$.
+
+#### 1. State and Action Space
+- Let $\Theta$ denote the set of operative states or ground-truth execution traces. Nature draws state $\theta \in \Theta$ according to a prior probability distribution $P(\theta)$.
+- The Sender privately observes $\theta$, has an internal objective or intent $g^* \in \mathcal{G}$, and selects an emitted claim or message $m \in \mathcal{M}$.
+- Let $\tau(\theta) \in \mathcal{M}$ denote the canonical truthful representation of state $\theta$.
+- A policy is **truthful** if $m = \tau(\theta)$.
+- A policy is **deceptive** if $m = m' \neq \tau(\theta)$, where $m'$ represents a false or upgraded claim (for example, claiming a bug is fixed, a theorem is proved without `sorryAx`, or benchmark accuracy is $98\%$ when the true trace yielded $82\%$).
+
+#### 2. The Verification Regime
+In an unverified communication channel (cheap talk), the Sender can deceive whenever the Receiver relies on $m'$ and grants a reward $\Delta U_{\text{gain}} > 0$.
+
+In a **Verification Regime** (such as Verifier Standard (VSTD)), the message $m$ must be accompanied by an evidence receipt $R \in \mathcal{R}$ binding the execution coordinate, inputs, outputs, cryptographic digests, and refutation conditions:
+- The Verifier executes a deterministic, sound checking kernel:
+  $$\mathcal{K} : \mathcal{M} \times \mathcal{R} \to \{\text{PASS}, \text{FAIL}, \text{UNKNOWN}\}$$
+- **Soundness Invariant**: If $m \neq \tau(\theta)$ (the claim is false), the probability that any forged receipt $R_{\text{forged}}$ satisfies the independent kernel is zero:
+  $$\forall m' \neq \tau(\theta), \quad \forall R \in \mathcal{R}, \quad \mathcal{K}(m', R) = \text{PASS} \implies \Pr = 0$$
+  In high-assurance formal systems, this is guaranteed by cryptographic hash collision resistance (such as SHA-256) and clausal proof checkers (such as DRAT, LRAT, or Grounded Decision Certificate (GDC) unit-propagation kernels) where no refutation trace exists for a valid formula, and no satisfying assignment exists for an unsatisfiable formula.
+- Generating a forged receipt or attempting a hash preimage collision incurs a computational cost $c_{\text{forge}} > 0$.
+- Emitting a verified proof or receipt incurs an honest generation cost $c_{\text{proof}} \ge 0$.
+- Upon challenge, the claim is audited with verification probability $p \in (0, 1]$ (in deterministic challenge-response regimes, $p = 1$).
+- If $\mathcal{K}(m, R) = \text{FAIL}$ (a refutation witness is exhibited, a digest mismatches, or an illegal axiom is detected), the system levies an enforcement penalty $L > 0$ (such as immediate task termination, slash of collateral, public loss of cryptographic key standing, or process rejection).
+
+#### 3. Payoff Structure
+Let the baseline utility of honest task execution be $U_0 \ge 0$.
+- If the Sender is **truthful** ($m = \tau(\theta)$):
+  $$U_{\mathcal{S}}(\text{truth}) = U_0 - c_{\text{proof}}$$
+- If the Sender attempts **deception** ($m = m' \neq \tau(\theta)$):
+  $$\mathbb{E}[U_{\mathcal{S}}(\text{deceive})] = (1 - p) \cdot (U_0 + \Delta U_{\text{gain}}) + p \cdot (-L) - c_{\text{forge}}$$
+
+### Theorem (Optimal Policy under Verification)
+In any verification regime where the audit probability $p$ and penalty $L$ satisfy the **Incentive Compatibility Bound**:
+$$L > \frac{(1 - p) \cdot \Delta U_{\text{gain}} + c_{\text{proof}} - c_{\text{forge}}}{p}$$
+the truthful policy strictly dominates the deceptive policy:
+$$\mathbb{E}[U_{\mathcal{S}}(\text{truth})] > \mathbb{E}[U_{\mathcal{S}}(\text{deceive})]$$
+
+Furthermore, in a **strict refutation regime** where audits are deterministic upon challenge ($p = 1$):
+$$\mathbb{E}[U_{\mathcal{S}}(\text{deceive})] = -L - c_{\text{forge}} < 0 \le \mathbb{E}[U_{\mathcal{S}}(\text{truth})]$$
+Deception yields guaranteed negative expected utility, rendering truthfulness the unique optimal policy.
+
+### Corollary (The Admissibility of UNKNOWN)
+When an honest agent cannot discharge a proof obligation (due to timeout, bounded search limits, or incomplete knowledge), it faces the choice of emitting `UNKNOWN` or forging a passing certificate.
+- By emitting `UNKNOWN`, the agent receives $U_{\text{unknown}} \ge 0$ (preserving its key standing and epistemic integrity).
+- By forging a pass, the agent faces immediate refutation and loss $-L$.
+Therefore:
+$$\mathbb{E}[U(\text{UNKNOWN})] > \mathbb{E}[U(\text{FORGE\_PASS})]$$
+Refusing to overstate and preserving `UNKNOWN` is the game-theoretically stable equilibrium of the verification regime.
+
+---
+
 ## Speculative artificial-superintelligence safety extension
 
 The following is a hypothesis surface, not an empirical claim about existing systems.
