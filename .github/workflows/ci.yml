@@ -72,12 +72,27 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
       - name: Install
+        # Every extra the repository declares, read from its own pyproject --
+        # never a hardcoded `[dev]`. A shared gate that names one repository's
+        # extras is wrong in the other eight the moment they differ.
+        # Measured: metamathethicology keeps its cross-repository integration
+        # dependencies in an `ecosystem` extra, and `tests/test_ecosystem.py`
+        # says in its own docstring "no silent skip" -- so guarding that import
+        # would contradict the file. Installing what it asks for is the fix.
+        # `tomli` because the 3.10 leg of this matrix has no stdlib `tomllib`.
         shell: bash
         run: |
           set -euo pipefail
           python -m pip install --upgrade pip
           if [ "${{ needs.discover.outputs.installable }}" = "true" ]; then
-            python -m pip install -e ".[dev]" || python -m pip install -e .
+            python -m pip install tomli >/dev/null
+            extras=$(python -c "import tomli,pathlib;print(','.join(sorted(tomli.loads(pathlib.Path('pyproject.toml').read_text('utf-8')).get('project',{}).get('optional-dependencies',{}))))")
+            if [ -n "$extras" ]; then
+              echo "declared extras: $extras"
+              python -m pip install -e ".[$extras]" || python -m pip install -e ".[dev]" || python -m pip install -e .
+            else
+              python -m pip install -e .
+            fi
           fi
           python -m pip install pytest
       - name: Byte-compile every tracked module
