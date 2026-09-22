@@ -110,9 +110,12 @@ jobs:
           python - <<'PY'
           import pathlib, re, subprocess, sys, urllib.parse
 
+          # splitlines(), never split(): hypergrammar tracks
+          # `docs/deep_research/Universal Recursive Systems Research Protocol.md`
+          # and whitespace-splitting turns that one file into five bogus paths.
           tracked = subprocess.run(
               ["git", "ls-files"], capture_output=True, text=True, check=True
-          ).stdout.split()
+          ).stdout.splitlines()
           on_disk = {pathlib.PurePosixPath(p) for p in tracked}
           link = re.compile(r"\[[^\]]*\]\(\s*([^)\s]+)")
           dangling = []
