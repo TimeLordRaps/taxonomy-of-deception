@@ -1,0 +1,158 @@
+name: release
+
+# The analog of verifier's release workflow. verifier's own version ends at
+# PyPI with a Trusted Publisher and a `scripts/` validator set; neither exists
+# in the sibling repositories, and a shared workflow that assumes them would
+# be dead code in fourteen places. What generalises is the qualification --
+# the tag must name a commit that the default branch contains, that the
+# conformance gate passed by name, and whose declared version agrees with the
+# tag -- and the artifact, which is built here rather than uploaded from a
+# developer's machine.
+
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: "Existing annotated tag to publish, for example v1.2.0."
+        required: true
+        type: string
+      draft:
+        description: "Create the release as a draft for review before it is visible."
+        required: false
+        default: true
+        type: boolean
+
+permissions:
+  contents: read
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    permissions:
+      actions: read
+      contents: write
+      id-token: write
+      attestations: write
+    env:
+      RELEASE_TAG: ${{ inputs.tag }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+          ref: ${{ inputs.tag }}
+          persist-credentials: false
+
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: "3.12"
+
+      - name: Require a default-branch commit the conformance gate passed by name
+        id: qualify
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          case "$RELEASE_TAG" in
+            ''|*[!A-Za-z0-9._-]*)
+              echo "[release] refusing: the tag must be a plain ref name; observed '$RELEASE_TAG'" >&2
+              exit 1 ;;
+          esac
+          source_commit=$(git rev-parse "refs/tags/${RELEASE_TAG}^{commit}")
+          if [ "$(git rev-parse HEAD)" != "$source_commit" ]; then
+            echo "[release] refusing: the checkout is not the tagged commit" >&2
+            exit 1
+          fi
+          default_branch=$(gh api "repos/$GITHUB_REPOSITORY" --jq .default_branch)
+          git fetch --quiet origin "$default_branch"
+          if ! git merge-base --is-ancestor "$source_commit" "origin/$default_branch"; then
+            echo "[release] refusing: $source_commit is not contained in $default_branch" >&2
+            exit 1
+          fi
+          run_id=$(gh api \
+            "repos/$GITHUB_REPOSITORY/actions/workflows/ci.yml/runs?head_sha=$source_commit&event=push&status=success&per_page=1" \
+            --jq '.workflow_runs[0].id // empty')
+          if [ -z "$run_id" ]; then
+            echo "[release] refusing: no successful conformance push run for $source_commit" >&2
+            exit 1
+          fi
+          # A green workflow is not a green gate. Ask about the job by name.
+          gates=$(gh api \
+            "repos/$GITHUB_REPOSITORY/actions/runs/$run_id/jobs?filter=latest&per_page=100" \
+            --jq '[.jobs[] | select(.name == "conformance-gate" and .conclusion == "success")] | length')
+          if [ "$gates" -ne 1 ]; then
+            echo "[release] refusing: run $run_id has $gates successful conformance-gate job(s), expected 1" >&2
+            exit 1
+          fi
+          echo "source_commit=$source_commit" >> "$GITHUB_OUTPUT"
+          echo "run_id=$run_id" >> "$GITHUB_OUTPUT"
+          echo "[release] qualified $source_commit by run $run_id"
+
+      - name: Require the declared version to agree with the tag
+        # Discovered, not assumed: a repository that declares no version has
+        # nothing to disagree with, and must not be failed for that.
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [ ! -f pyproject.toml ]; then
+            echo "[release] no pyproject.toml: nothing declares a version"
+            exit 0
+          fi
+          python -m pip install --quiet tomli
+          declared=$(python -c "import tomli,pathlib;print(tomli.loads(pathlib.Path('pyproject.toml').read_text('utf-8')).get('project',{}).get('version',''))")
+          if [ -z "$declared" ]; then
+            echo "[release] pyproject.toml declares no static version"
+            exit 0
+          fi
+          expected="${RELEASE_TAG#v}"
+          if [ "$declared" != "$expected" ]; then
+            echo "[release] refusing: tag says $expected, pyproject.toml says $declared" >&2
+            exit 1
+          fi
+          echo "[release] tag and declared version agree at $declared"
+
+      - name: Build whatever this repository can be built into
+        id: build
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p dist
+          if [ -f pyproject.toml ] && python -c "import tomli,pathlib,sys; d=tomli.loads(pathlib.Path('pyproject.toml').read_text('utf-8')); sys.exit(0 if 'project' in d and 'build-system' in d else 1)" 2>/dev/null; then
+            python -m pip install --quiet build
+            python -m build --outdir dist
+          else
+            echo "[release] not an installable package: publishing a source archive"
+          fi
+          # Every repository gets a reproducible source archive of the exact
+          # tagged tree, installable or not. `git archive` is byte-stable for
+          # a given commit, so the attestation below means something.
+          git archive --format=tar.gz --prefix="${GITHUB_REPOSITORY#*/}-${RELEASE_TAG}/" \
+            -o "dist/${GITHUB_REPOSITORY#*/}-${RELEASE_TAG}-source.tar.gz" "$RELEASE_TAG"
+          ls -l dist
+
+      - uses: actions/attest-build-provenance@977bb373ede98d70efdf65b84cb5f73e068dcc2a # v3.0.0
+        with:
+          subject-path: dist/*
+
+      - name: Publish the release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          DRAFT: ${{ inputs.draft }}
+          SOURCE_COMMIT: ${{ steps.qualify.outputs.source_commit }}
+          RUN_ID: ${{ steps.qualify.outputs.run_id }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          {
+            echo "Tagged commit \`$SOURCE_COMMIT\`, contained in the default branch."
+            echo
+            echo "Qualified by conformance run [$RUN_ID]($GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$RUN_ID),"
+            echo "whose \`conformance-gate\` job concluded success."
+            echo
+            echo "Attached artifacts carry build provenance attestations."
+          } > release-notes.md
+          args=(--repo "$GITHUB_REPOSITORY" --title "$RELEASE_TAG" --notes-file release-notes.md --verify-tag)
+          if [ "$DRAFT" = "true" ]; then args+=(--draft); fi
+          gh release create "$RELEASE_TAG" "${args[@]}" dist/*
+          echo "[release] published $RELEASE_TAG"

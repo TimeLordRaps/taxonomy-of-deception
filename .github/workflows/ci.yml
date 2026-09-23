@@ -1,0 +1,218 @@
+name: conformance
+
+# One required context, `conformance-gate`, matching the contract `verifier` and
+# the four conformance-family repositories already publish. Branch protection can
+# require exactly that name here as it does there.
+#
+# What this file checks is DISCOVERED, not listed. A repository with Python gets
+# its suite run; a repository of prose gets its links resolved; a repository with
+# both gets both. Nothing here names a path that only one repository has, which is
+# why the same file is correct in a 193-document prose tree and in a package with
+# a test suite. Listing per-repository specifics is how a shared workflow goes
+# stale in fourteen places at once.
+
+on:
+  push:
+    branches: [main]
+    tags: ["v*"]
+  pull_request:
+  workflow_dispatch:
+
+concurrency:
+  group: conformance-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+permissions:
+  contents: read
+
+jobs:
+  discover:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    outputs:
+      python: ${{ steps.probe.outputs.python }}
+      installable: ${{ steps.probe.outputs.installable }}
+      tests: ${{ steps.probe.outputs.tests }}
+      markdown: ${{ steps.probe.outputs.markdown }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - id: probe
+        name: Record what this repository actually contains
+        shell: bash
+        run: |
+          set -euo pipefail
+          py=$(git ls-files '*.py' | wc -l)
+          ts=$(git ls-files | grep -cE '(^|/)tests?/.*\.py$|(^|/)test_[^/]*\.py$' || true)
+          md=$(git ls-files '*.md' | wc -l)
+          inst=0
+          { [ -f pyproject.toml ] || [ -f setup.py ]; } && inst=1
+          yes_no() { [ "$1" -gt 0 ] && echo true || echo false; }
+          {
+            echo "python=$(yes_no "$py")"
+            echo "installable=$(yes_no "$inst")"
+            echo "tests=$(yes_no "$ts")"
+            echo "markdown=$(yes_no "$md")"
+          } >> "$GITHUB_OUTPUT"
+          printf 'python files=%s  tests=%s  markdown=%s  installable=%s\n' \
+            "$py" "$ts" "$md" "$inst" >> "$GITHUB_STEP_SUMMARY"
+
+  python:
+    needs: discover
+    if: needs.discover.outputs.python == 'true'
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 20
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+        python-version: ["3.10", "3.13"]
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install
+        # Every extra the repository declares, read from its own pyproject --
+        # never a hardcoded `[dev]`. A shared gate that names one repository's
+        # extras is wrong in the other eight the moment they differ.
+        # Measured: metamathethicology keeps its cross-repository integration
+        # dependencies in an `ecosystem` extra, and `tests/test_ecosystem.py`
+        # says in its own docstring "no silent skip" -- so guarding that import
+        # would contradict the file. Installing what it asks for is the fix.
+        # `tomli` because the 3.10 leg of this matrix has no stdlib `tomllib`.
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m pip install --upgrade pip
+          if [ "${{ needs.discover.outputs.installable }}" = "true" ]; then
+            python -m pip install tomli >/dev/null
+            extras=$(python -c "import tomli,pathlib;print(','.join(sorted(tomli.loads(pathlib.Path('pyproject.toml').read_text('utf-8')).get('project',{}).get('optional-dependencies',{}))))")
+            if [ -n "$extras" ]; then
+              echo "declared extras: $extras"
+              python -m pip install -e ".[$extras]" || python -m pip install -e ".[dev]" || python -m pip install -e .
+            else
+              python -m pip install -e .
+            fi
+          fi
+          python -m pip install pytest
+      - name: Byte-compile every tracked module
+        # A package with no test suite can still be held to parsing. This is the
+        # floor, not a substitute for tests.
+        shell: bash
+        run: git ls-files '*.py' | xargs -r python -m py_compile
+      - name: Run the test suite
+        if: needs.discover.outputs.tests == 'true'
+        shell: bash
+        env:
+          # A repository that is importable only from `src/` has no installed
+          # distribution to import; this makes the suite reach it either way.
+          PYTHONPATH: src
+        run: python -m pytest -q
+
+  documents:
+    needs: discover
+    if: needs.discover.outputs.markdown == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: "3.12"
+      - name: Every relative link in a tracked document resolves to a tracked file
+        shell: bash
+        run: |
+          python - <<'PY'
+          import pathlib, re, subprocess, sys, urllib.parse
+
+          # splitlines(), never split(): hypergrammar tracks
+          # `docs/deep_research/Universal Recursive Systems Research Protocol.md`
+          # and whitespace-splitting turns that one file into five bogus paths.
+          tracked = subprocess.run(
+              ["git", "ls-files"], capture_output=True, text=True, check=True
+          ).stdout.splitlines()
+          on_disk = {pathlib.PurePosixPath(p) for p in tracked}
+          link = re.compile(r"\[[^\]]*\]\(\s*([^)\s]+)")
+          dangling = []
+
+          for name in tracked:
+              if not name.endswith(".md"):
+                  continue
+              here = pathlib.PurePosixPath(name).parent
+              body = pathlib.Path(name).read_text(encoding="utf-8", errors="replace")
+              for target in link.findall(body):
+                  if re.match(r"[a-zA-Z][a-zA-Z0-9+.-]*:", target) or target.startswith("#"):
+                      continue
+                  path = urllib.parse.unquote(target.split("#", 1)[0]).strip()
+                  if not path or path.endswith("/"):
+                      # A directory-style target is a rendered URL, not a file
+                      # path. Jekyll permalinks resolve on the published site and
+                      # have nothing to point at in the tree, so file existence
+                      # cannot adjudicate them and must not try. Measured: this
+                      # is the whole of taxonomy-of-deception's four "failures".
+                      continue
+                  resolved = pathlib.PurePosixPath(
+                      __import__("posixpath").normpath(str(here / path))
+                  )
+                  if resolved in on_disk:
+                      continue
+                  if pathlib.Path(str(resolved)).is_dir():
+                      continue
+                  dangling.append(f"{name} -> {target}")
+
+          if dangling:
+              print(f"{len(dangling)} dangling relative link(s):")
+              for entry in sorted(dangling):
+                  print("  " + entry)
+              sys.exit(1)
+          print(f"all relative links resolve across {len(tracked)} tracked files")
+          PY
+
+      - name: No tracked document is empty
+        shell: bash
+        run: |
+          set -euo pipefail
+          empty=$(git ls-files '*.md' | while read -r f; do
+            [ -s "$f" ] || echo "$f"
+          done)
+          if [ -n "$empty" ]; then
+            echo "empty tracked document(s):"; echo "$empty"; exit 1
+          fi
+          echo "no empty tracked documents"
+
+  conformance-gate:
+    # The single context branch protection requires. It must run even when an
+    # upstream job fails, or a failure would leave the gate pending rather than
+    # red -- which reads as "not finished" instead of "refused".
+    if: always()
+    needs: [discover, python, documents]
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Refuse unless every applicable check succeeded or did not apply
+        shell: bash
+        env:
+          DISCOVER: ${{ needs.discover.result }}
+          PYTHON: ${{ needs.python.result }}
+          DOCUMENTS: ${{ needs.documents.result }}
+        run: |
+          set -euo pipefail
+          failed=0
+          for pair in "discover:$DISCOVER" "python:$PYTHON" "documents:$DOCUMENTS"; do
+            name=${pair%%:*}
+            result=${pair#*:}
+            case "$result" in
+              success) echo "PASS   $name" ;;
+              # `skipped` is how a job reports that this repository has nothing of
+              # that kind. It is not a pass and must never be reported as one.
+              skipped) echo "N/A    $name (nothing of this kind in the repository)" ;;
+              *)       echo "FAIL   $name ($result)"; failed=1 ;;
+            esac
+          done
+          [ "$failed" -eq 0 ] || {
+            echo
+            echo "conformance-gate refuses: at least one applicable check did not succeed."
+            exit 1
+          }
+          echo
+          echo "conformance-gate: every applicable check succeeded."
